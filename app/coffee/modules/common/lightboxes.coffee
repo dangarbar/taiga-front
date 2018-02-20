@@ -709,7 +709,7 @@ AssignedUsersLightboxDirective = ($repo, lightboxService, lightboxKeyboardNaviga
         # and without now watched users.
         getFilteredUsers = (text="") ->
             _filterUsers = (text, user) ->
-                if selectedItem && _.find(selectedItem.assignedUsers, (x) -> x == user.id)
+                if selectedItem && _.find(selectedItem.assigned_users, (x) -> x == user.id)
                     return false
 
                 username = user.full_name_display.toUpperCase()
@@ -737,14 +737,13 @@ AssignedUsersLightboxDirective = ($repo, lightboxService, lightboxKeyboardNaviga
 
             html = usersTemplate(ctx)
             html = $compile(html)($scope)
-            $el.find(".ticket-watchers").html(html)
+            $el.find(".assigned-to-list").html(html)
 
         closeLightbox = () ->
             lightboxKeyboardNavigationService.stop()
             lightboxService.close($el)
 
         $scope.$on "assignedUser:add", (ctx, item) ->
-            console.log(item)
             selectedItem = item
 
             users = getFilteredUsers()
@@ -784,7 +783,7 @@ AssignedUsersLightboxDirective = ($repo, lightboxService, lightboxKeyboardNaviga
             $el.off()
 
     return {
-        templateUrl: "common/lightbox/lightbox-users.html"
+        templateUrl: "common/lightbox/lightbox-assigned-users.html"
         link:link
     }
 
