@@ -646,7 +646,6 @@ AssignedToLightboxDirective = (lightboxService, lightboxKeyboardNavigationServic
             selectedItem = item
             assignedToId = item.assigned_to
             selectedUser = $scope.usersById[assignedToId]
-
             render(selectedUser)
             lightboxService.open($el).then ->
                 $el.find('input').focus()
@@ -743,9 +742,8 @@ AssignedUsersLightboxDirective = ($repo, lightboxService, lightboxKeyboardNaviga
             lightboxKeyboardNavigationService.stop()
             lightboxService.close($el)
 
-        $scope.$on "assignedUser:add", (ctx, item) ->
+        $scope.$on "assigned-user:add", (ctx, item) ->
             selectedItem = item
-
             users = getFilteredUsers()
             render(users)
 
@@ -769,7 +767,7 @@ AssignedUsersLightboxDirective = ($repo, lightboxService, lightboxKeyboardNaviga
 
             $scope.$apply ->
                 $scope.usersSearch = null
-                $scope.$broadcast("assignedUser:added", target.data("user-id"))
+                $scope.$broadcast("assigned-user:added", target.data("user-id"))
 
         $el.on "click", ".close", (event) ->
             event.preventDefault()

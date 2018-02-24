@@ -162,6 +162,11 @@
             "TITLE_ACTION_EDIT_ASSIGNMENT": "Edit assignment",
             "SELF": "Assign to me"
         },
+        "ASSIGNED_USERS": {
+            "ADD": "Select assigned user",
+            "ADD_ASSIGNED": "Add assigned",
+            "TITLE_LIGHTBOX_DELETE_ASSIGNED": "Delete assigned..."
+        },
         "STATUS": {
             "CLOSED": "Closed",
             "OPEN": "Open"

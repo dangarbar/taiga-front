@@ -106,6 +106,7 @@
         }
     }
     .user-list-name {
+        @include font-type(text);
         flex: 1;
         position: relative;
     }

@@ -330,7 +330,7 @@ AssignedUsersDirective = ($rootscope, $confirm, $repo, $modelTransform, $templat
 
         openAssignedUsers = ->
             item = _.clone($model.$modelValue, false)
-            $rootscope.$broadcast("assignedUser:add", item)
+            $rootscope.$broadcast("assigned-user:add", item)
 
         assignToMe = ->
             return if not isEditable()
@@ -346,7 +346,8 @@ AssignedUsersDirective = ($rootscope, $confirm, $repo, $modelTransform, $templat
 
                 # Update as
                 if item.assigned_to not in assignedUserIds and assignedUserIds.length > 0
-                    item.assign_to = assignedUserIds[0]
+                    console.log('deleting assigned user many users')
+                    item.assigned_to = assignedUserIds[0]
                 if assignedUserIds.length == 0
                     item.assigned_to = null
 
@@ -367,6 +368,7 @@ AssignedUsersDirective = ($rootscope, $confirm, $repo, $modelTransform, $templat
             $scope.isEditable = isEditable()
             $scope.isAssigned = isAssigned()
             $scope.openAssignedUsers = openAssignedUsers
+            $scope.assignToMe = assignToMe
 
         $el.on "click", ".remove-user", (event) ->
             event.preventDefault()
@@ -385,16 +387,16 @@ AssignedUsersDirective = ($rootscope, $confirm, $repo, $modelTransform, $templat
 
                 deleteAssignedUser(assignedUserIds)
 
-        $scope.$on "assignedUser:added", (ctx, assignedUserId) ->
+        $scope.$on "assigned-user:added", (ctx, assignedUserId) ->
             assignedUsers = _.clone($model.$modelValue.assigned_users, false)
             assignedUsers.push(assignedUserId)
             assignedUsers = _.uniq(assignedUsers)
             # Save assigned_users and assignedUserId for assign_to legacy attribute
             save(assignedUsers, assignedUserId)
-        
-        $el.on "click", ".assign-to-mee", (event) ->
-            event.preventDefault()
-            assignToMe()
+
+        # $el.on "click", ".assign-to-mee", (event) ->
+        #     event.preventDefault()
+        #     assignToMe()
 
         $scope.$watch $attrs.ngModel, (item) ->
             return if not item?
