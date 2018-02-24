@@ -705,7 +705,7 @@ AssignedUsersLightboxDirective = ($repo, lightboxService, lightboxKeyboardNaviga
         usersTemplate = $template.get("common/lightbox/lightbox-assigned-to-users.html", true)
 
         # Get prefiltered users by text
-        # and without now watched users.
+        # and without now assigned users.
         getFilteredUsers = (text="") ->
             _filterUsers = (text, user) ->
                 if selectedItem && _.find(selectedItem.assigned_users, (x) -> x == user.id)
@@ -767,7 +767,7 @@ AssignedUsersLightboxDirective = ($repo, lightboxService, lightboxKeyboardNaviga
 
             $scope.$apply ->
                 $scope.usersSearch = null
-                $scope.$broadcast("assigned-user:added", target.data("user-id"))
+                $scope.$broadcast("assigned-user:added", target.data("user-id"), selectedItem)
 
         $el.on "click", ".close", (event) ->
             event.preventDefault()

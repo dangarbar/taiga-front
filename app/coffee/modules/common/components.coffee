@@ -346,7 +346,6 @@ AssignedUsersDirective = ($rootscope, $confirm, $repo, $modelTransform, $templat
 
                 # Update as
                 if item.assigned_to not in assignedUserIds and assignedUserIds.length > 0
-                    console.log('deleting assigned user many users')
                     item.assigned_to = assignedUserIds[0]
                 if assignedUserIds.length == 0
                     item.assigned_to = null
@@ -391,12 +390,9 @@ AssignedUsersDirective = ($rootscope, $confirm, $repo, $modelTransform, $templat
             assignedUsers = _.clone($model.$modelValue.assigned_users, false)
             assignedUsers.push(assignedUserId)
             assignedUsers = _.uniq(assignedUsers)
+
             # Save assigned_users and assignedUserId for assign_to legacy attribute
             save(assignedUsers, assignedUserId)
-
-        # $el.on "click", ".assign-to-mee", (event) ->
-        #     event.preventDefault()
-        #     assignToMe()
 
         $scope.$watch $attrs.ngModel, (item) ->
             return if not item?
@@ -506,7 +502,6 @@ AssignedToDirective = ($rootscope, $confirm, $repo, $loading, $modelTransform, $
 
         $scope.$on "assigned-to:added", (ctx, userId, item) ->
             return if item.id != $model.$modelValue.id
-
             save(userId)
 
         $scope.$watch $attrs.ngModel, (instance) ->
