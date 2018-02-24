@@ -21,7 +21,7 @@
         margin: .2rem 0 .25rem;
     }
 
-    .tg-assigned-users-list {
+    .tg-assigned-users {
         align-items: center;
         position: relative;
     }
@@ -60,9 +60,6 @@
     .user-assigned,
     .assign-to-me {
         color: $primary;
-        &:hover {
-            color: currentColor;
-        }
         &.editable {
             color: $primary;
             &:hover {
@@ -75,7 +72,7 @@
     }
 
     .not-assigned-users {
-        align-content: center;
+        align-items: center;
         display: flex;
 
         .assigned-title {
@@ -85,6 +82,11 @@
             display: block;
             margin: .2rem 0 .25rem;
         }
+        .assigned-to {
+            flex-grow: 1;
+            margin-left: .5rem;
+        }
+
         .assigned-to-options {
             align-content: center;
             display: flex;
