@@ -1144,6 +1144,7 @@
         "LIGHTBOX_TITLE_BLOKING_US": "Blocking us",
         "NOT_ESTIMATED": "Not estimated",
         "OWNER_US": "This User Story belongs to",
+        "RELATE_TO_EPIC": "Relate to Epic",
         "TRIBE": {
             "PUBLISH": "Publish as Gig in Taiga Tribe",
             "PUBLISH_INFO": "More info",

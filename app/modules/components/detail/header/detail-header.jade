@@ -38,7 +38,7 @@
             )
 
 //- User Story belongs to epic
-.belong-to-epics-wrapper(ng-if="vm.item.epics")
+.belong-to-epics-wrapper(ng-if="vm.item.epics && vm.project.is_epics_activated")
     span(translate="US.OWNER_US")
     tg-belong-to-epics(
         ng-if="::vm.item.epics"
@@ -46,6 +46,19 @@
         format="text"
     )
 
+//- User Story relate to Epic
+a.relate-to-epic-button.ng-animate-disabled(
+    ng-if="vm.item._name == 'userstories' && vm.permissions.canEdit && vm.project.is_epics_activated"
+    href=""
+    title="{{'US.RELATE_TO_EPIC' | translate}}"
+    ng-click="vm.relateToEpic()"
+)
+    tg-svg(
+        svg-icon="icon-epics"
+        svg-title-translate="US.RELATE_TO_EPIC"
+    )
+    span.relate-to-epic-text(translate="US.RELATE_TO_EPIC")
+ 
 //- Task belongs to US
 .task-belongs-to(
     ng-if="vm.item.user_story_extra_info"

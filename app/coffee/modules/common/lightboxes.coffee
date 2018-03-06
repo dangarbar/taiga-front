@@ -802,3 +802,34 @@ LightboxLeaveProjectWarningDirective = (lightboxService, $template, $compile) ->
     }
 
 module.directive("tgLightboxLeaveProjectWarning", ["lightboxService", LightboxLeaveProjectWarningDirective])
+
+
+#############################################################################
+## RelateToEpic Lightbox Directive
+#############################################################################
+
+RelateToEpicLightboxDirective = (lightboxService) ->
+    link = ($scope, $el, $attrs) ->
+        selectedItem = null
+
+        render = (selected, text) ->
+
+        $scope.$on "relate-to-epic:add", (ctx, item) ->
+            selectedItem = item
+            lightboxService.open($el).then ->
+                $el.find('input').focus()
+
+        $el.on "click", ".close", (event) ->
+            event.preventDefault()
+            lightboxService.close($el)
+
+        $scope.$on "$destroy", ->
+            $el.off()
+
+    return {
+        templateUrl: "common/lightbox/lightbox-relate-to-epic.html"
+        link:link
+    }
+
+
+module.directive("tgLbRelatetoepic", ["lightboxService", RelateToEpicLightboxDirective])
