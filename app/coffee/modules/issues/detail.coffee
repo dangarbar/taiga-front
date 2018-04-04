@@ -640,7 +640,7 @@ PromoteIssueToUsButtonDirective = ($rootScope, $repo, $confirm, $translate) ->
 
         $el.on "click", "a", (event) ->
             event.preventDefault()
-            issue = $model.$modelValue
+            issue = $model.$modelValue.clone()
 
             title = $translate.instant("ISSUES.CONFIRM_PROMOTE.TITLE")
             message = $translate.instant("ISSUES.CONFIRM_PROMOTE.MESSAGE")

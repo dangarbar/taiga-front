@@ -802,3 +802,20 @@ LightboxLeaveProjectWarningDirective = (lightboxService, $template, $compile) ->
     }
 
 module.directive("tgLightboxLeaveProjectWarning", ["lightboxService", LightboxLeaveProjectWarningDirective])
+
+
+#############################################################################
+## Set Due Date Lightbox Directive
+#############################################################################
+
+SetDueDateDirective = (lightboxService) ->
+    link = ($scope, $el, attrs) ->
+        lightboxService.open($el)
+
+    return {
+        templateUrl: "common/lightbox/lightbox-due-date.html",
+        link: link,
+        scope: true
+    }
+
+module.directive("tgLbSetDueDate", ["lightboxService", SetDueDateDirective])

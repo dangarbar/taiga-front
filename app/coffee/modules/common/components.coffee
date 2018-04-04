@@ -495,6 +495,47 @@ DeleteButtonDirective = ($log, $repo, $confirm, $location, $template) ->
 
 module.directive("tgDeleteButton", ["$log", "$tgRepo", "$tgConfirm", "$tgLocation", "$tgTemplate", DeleteButtonDirective])
 
+
+#############################################################################
+## Set Due Date Button directive
+#############################################################################
+
+SetDueDateButtonDirective = (lightboxFactory)->
+    link = ($scope, $el, $attrs, $model) ->
+        render = (dueDateStateById, item) ->
+            # dueDateState = dueDateStateById[item.due_date]
+            dueDateState = 'distant'
+            domNode = $el.find("a.due-date-button")
+            domNode.addClass(dueDateState)
+
+        bindOnce $scope, "dueDateStateById", (dueDateStateById) ->
+            item = $scope.$eval($attrs.tgSetDueDateButton)
+            render(dueDateStateById, item)
+
+        $scope.$watch $attrs.tgSetDueDateButton, (item) ->
+            render($scope.dueDateStateById, item)
+
+        $el.on "click", "a", (event) ->
+            event.preventDefault()
+            item = $model.$modelValue.clone()
+            lightboxFactory.create("tg-lb-set-due-date", {
+                "class": "lightbox lightbox-set-due-date",
+                "due-date": "dueDate",
+                "due-date-reason": "dueDateReason"
+            }, {
+                dueDate: item.created_date,
+                dueDateReason: item.description
+            })
+
+    return {
+        link: link
+        require: "ngModel"
+        templateUrl: "common/components/set-due-date-button.html"
+    }
+
+module.directive("tgSetDueDateButton", ["tgLightboxFactory", SetDueDateButtonDirective])
+
+
 #############################################################################
 ## Common list directives
 #############################################################################
