@@ -500,32 +500,29 @@ module.directive("tgDeleteButton", ["$log", "$tgRepo", "$tgConfirm", "$tgLocatio
 ## Set Due Date Button directive
 #############################################################################
 
-SetDueDateButtonDirective = (lightboxFactory)->
+SetDueDateButtonDirective = (lightboxFactory, $translate)->
     link = ($scope, $el, $attrs, $model) ->
-        render = (dueDateStateById, item) ->
+        render = (item) ->
             # dueDateState = dueDateStateById[item.due_date]
             dueDateState = 'distant'
             domNode = $el.find("a.due-date-button")
             domNode.addClass(dueDateState)
 
-        bindOnce $scope, "dueDateStateById", (dueDateStateById) ->
-            item = $scope.$eval($attrs.tgSetDueDateButton)
-            render(dueDateStateById, item)
-
         $scope.$watch $attrs.tgSetDueDateButton, (item) ->
-            render($scope.dueDateStateById, item)
+            render(item)
 
         $el.on "click", "a", (event) ->
             event.preventDefault()
             item = $model.$modelValue.clone()
+
             lightboxFactory.create("tg-lb-set-due-date", {
                 "class": "lightbox lightbox-set-due-date",
-                "due-date": "dueDate",
-                "due-date-reason": "dueDateReason"
             }, {
-                dueDate: item.created_date,
-                dueDateReason: item.description
+                "object": item
             })
+
+        $scope.$on "duedate:updated", (ctx, item) ->
+            # TODO refresh button color
 
     return {
         link: link
@@ -533,7 +530,8 @@ SetDueDateButtonDirective = (lightboxFactory)->
         templateUrl: "common/components/set-due-date-button.html"
     }
 
-module.directive("tgSetDueDateButton", ["tgLightboxFactory", SetDueDateButtonDirective])
+module.directive("tgSetDueDateButton", ["tgLightboxFactory", "$translate"
+                                        SetDueDateButtonDirective])
 
 
 #############################################################################
