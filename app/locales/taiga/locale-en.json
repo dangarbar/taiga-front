@@ -1082,6 +1082,10 @@
             "EDIT_US": "Edit user story",
             "CONFIRM_CLOSE": "You have not saved changes.\nAre you sure you want to close the form?"
         },
+        "DELETE_DUE_DATE": {
+            "TITLE": "Delete due date",
+            "SUBTITLE": "Are you sure you want to delete this due date?"
+        },
         "DELETE_SPRINT": {
             "TITLE": "Delete sprint"
         },
@@ -1123,7 +1127,8 @@
                 "IN_TWO_WEEKS": "In two weeks",
                 "IN_ONE_MONTH": "In one month",
                 "IN_THREE_MONTHS": "In three months"
-            }
+            },
+            "TITLE_ACTION_DELETE_DUE_DATE": "Delete due date"
         }
     },
     "EPIC": {

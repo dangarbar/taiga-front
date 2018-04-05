@@ -36,10 +36,8 @@ form
         translate="COMMON.SAVE"
     )
 
-    a.delete-sprint(
-        tg-check-permission="delete_due_date"
+    a.delete-due-date(
         href=""
         title="{{'LIGHTBOX.SET_DUE_DATE.TITLE_ACTION_DELETE_DUE_DATE' | translate}}"
     )
-        span {{'LIGHTBOX.SET_DUE_DATE.ACTION_DELETE_DUE_DATE' | translate }}
         tg-svg(svg-icon="icon-trash")

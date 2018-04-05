@@ -542,6 +542,7 @@
 }
 
 .lightbox-set-due-date {
+    z-index: 9999;
     form {
         flex-basis: 600px;
         flex-flow: 0;
@@ -578,6 +579,23 @@
             &.active {
                 background: rgba($primary-light, .9);
                 color: $white;
+            }
+        }
+    }
+    .delete-due-date {
+        @include font-size(small);
+        color: $gray;
+        float: right;
+        margin: 1rem .25rem 0 0;
+        transition: color .3s linear;
+        .icon {
+            fill: currentColor;
+        }
+        &:hover {
+            color: $red;
+            transition: color .3s linear;
+            .icon {
+                fill: currentColor;
             }
         }
     }

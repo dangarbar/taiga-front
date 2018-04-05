@@ -808,8 +808,7 @@ module.directive("tgLightboxLeaveProjectWarning", ["lightboxService", LightboxLe
 ## Set Due Date Lightbox Directive
 #############################################################################
 
-SetDueDateDirective = (lightboxService, $loading, $translate, $confirm,
-$modelTransform) ->
+SetDueDateDirective = (lightboxService, $loading, $translate, $confirm, $modelTransform) ->
     link = ($scope, $el, attrs) ->
         prettyDate = $translate.instant("COMMON.PICKERDATE.FORMAT")
         lightboxService.open($el)
@@ -824,8 +823,7 @@ $modelTransform) ->
             value = moment().add(quantity, unit).format(prettyDate)
             $el.find(".due-date").val(value)
 
-        submit = (event) ->
-            event.preventDefault()
+        save = ->
             currentLoading = $loading()
                 .target($el.find(".submit-button"))
                 .start()
@@ -846,7 +844,23 @@ $modelTransform) ->
                 currentLoading.finish()
                 lightboxService.close($el)
 
-        $el.on "submit", "form", submit
+        $el.on "click", ".submit-button", (event) ->
+            event.preventDefault()
+            save()
+
+        remove = ->
+            title = $translate.instant("LIGHTBOX.DELETE_DUE_DATE.TITLE")
+            subtitle = $translate.instant("LIGHTBOX.DELETE_DUE_DATE.SUBTITLE")
+            message = moment($scope.object.due_date).format(prettyDate)
+
+            $confirm.askOnDelete(title, message, subtitle).then (askResponse) ->
+                askResponse.finish()
+                $scope.object.due_date = ''
+                save()
+
+        $el.on "click", ".delete-due-date", (event) ->
+            event.preventDefault()
+            remove()
 
     return {
         templateUrl: 'common/lightbox/lightbox-due-date.html',
