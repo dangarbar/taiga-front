@@ -502,27 +502,54 @@ module.directive("tgDeleteButton", ["$log", "$tgRepo", "$tgConfirm", "$tgLocatio
 
 SetDueDateButtonDirective = (lightboxFactory, $translate)->
     link = ($scope, $el, $attrs, $model) ->
-        render = (item) ->
-            # dueDateState = dueDateStateById[item.due_date]
-            dueDateState = 'distant'
-            domNode = $el.find("a.due-date-button")
-            domNode.addClass(dueDateState)
-
-        $scope.$watch $attrs.tgSetDueDateButton, (item) ->
-            render(item)
+        item = null
 
         $el.on "click", "a", (event) ->
             event.preventDefault()
             item = $model.$modelValue.clone()
+            return if isClosed(item)
 
-            lightboxFactory.create("tg-lb-set-due-date", {
-                "class": "lightbox lightbox-set-due-date",
-            }, {
-                "object": item
-            })
+            lightboxFactory.create(
+                "tg-lb-set-due-date",
+                {"class": "lightbox lightbox-set-due-date"},
+                {"object": item}
+            )
 
-        $scope.$on "duedate:updated", (ctx, item) ->
-            # TODO refresh button color
+        render = (item) ->
+            $scope.isClosed = isClosed(item)
+            $scope.status = getStatus(item)
+            $scope.title = getTitle(item)
+
+        isClosed = (item) ->
+            return item.is_closed
+
+        getStatus = (item) ->
+            if (item.is_closed == true)
+                return 'closed'
+            else if (item.due_status == 'due soon')
+                return 'due-soon'
+            else if (item.due_status == 'past due')
+                return 'past-soon'
+            else if (item.due_status == 'due set')
+                return 'due-set'
+            return ''
+
+        getTitle = (item) ->
+            if not item.due_date?
+                return $translate.instant("COMMON.DUE_DATE.TITLE_ACTION_SET_DUE_DATE")
+
+            title = item.due_date
+            if (item.is_closed == true)
+                return "#{title} (#{$translate.instant("COMMON.DUE_DATE.NO_LONGER_APPLICABLE")})"
+            else if (item.due_status == 'due soon')
+                return "#{title} (#{$translate.instant("COMMON.DUE_DATE.DUE_SOON")})"
+            else if (item.due_status == 'past due')
+                return "#{title} (#{$translate.instant("COMMON.DUE_DATE.PAST_DUE")})"
+            return title
+
+        $scope.$watch $attrs.ngModel, (instance) ->
+            return if not item?
+            render($model.$modelValue)
 
     return {
         link: link

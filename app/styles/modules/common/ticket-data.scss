@@ -215,16 +215,16 @@
         }
     }
     .due-date-button {
-        &.blocked {
+        &.closed {
             background: $gray-lighter;
         }
-        &.distant {
+        &.due-set {
             background: $yellow-green;
         }
-        &.inminent {
+        &.due-soon {
             background: $my-sin;
         }
-        &.delayed {
+        &.past-due {
             background: $red-light;
         }
     }
