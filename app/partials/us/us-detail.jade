@@ -127,9 +127,10 @@ div.wrapper(
             ) {{'US.TRIBE.PUBLISH_INFO' | translate}}
 
         section.ticket-detail-settings
-            tg-due-date-button(
+            tg-due-date(
                 tg-check-permission="modify_us",
                 ng-model="us",
+                is-closed="us.is_closed"
                 format="button"
             )
             tg-us-team-requirement-button(ng-model="us")

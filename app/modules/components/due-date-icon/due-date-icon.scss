@@ -1,13 +1,13 @@
 tg-due-date .due-date-icon {
-    line-height: .1rem;
     display: inline-block;
-    position: relative;
+    line-height: .1rem;
     margin: 0 .25rem;
+    position: relative;
     svg {
-        height: 1.25rem;
-        width: 1.25rem;
         fill: $gray-light;
+        height: 1.25rem;
         transition: fill .2s ease-in;
+        width: 1.25rem;
     }
 }
 

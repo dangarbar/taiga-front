@@ -18,14 +18,50 @@
 ###
 
 
-DueDateButtonDirective = (lightboxFactory, $translate)->
-    link = ($scope, $el, $attrs, $model) ->
-        item = null
+DueDateDirective = ($log, lightboxFactory, $translate)->
+    statusAttrs = {
+        'closed': { class: 'closed', title: 'COMMON.DUE_DATE.NO_LONGER_APPLICABLE' },
+        'due soon': { class: 'due-soon', title: 'COMMON.DUE_DATE.DUE_SOON', },
+        'past due': { class: 'past-due', title: 'COMMON.DUE_DATE.PAST_DUE' },
+        'due set': {  class: 'due-set' },
+    }
 
-        $el.on "click", "a", (event) ->
+    link = ($scope, $el, $attrs, $model) ->
+        render = (dueDate, dueDateStatus) ->
+            dueDateStatus = 'due soon'
+            dueDateAttrs = statusAttrs[dueDateStatus]
+            if not dueDateAttrs
+                $log.error("Invalid due date status \"#{dueDateStatus}\"")
+                return
+
+            setClass(dueDateAttrs.class)
+            setTitle(dueDate, dueDateAttrs.title)
+
+        setClass = (dueDateClass) ->
+            $el.addClass(dueDateClass)
+
+        setTitle = (dueDate, dueDateTitle) ->
+            prettyDate = $translate.instant("COMMON.PICKERDATE.FORMAT")
+            formatedDate = moment(dueDate).format(prettyDate)
+            title = if dueDateTitle\
+                then "#{formatedDate} (#{$translate.instant(dueDateTitle)})"\
+                else formatedDate
+
+            if $el.find('.due-date-button')
+                $el.find('.due-date-button').attr('title', title)
+            else
+                $el.attr('title', title)
+
+        $scope.$watch $attrs.ngModel, (instance) ->
+            return if not instance?
+            if $el.find('.due-date-button')
+                $el.find('.due-date-button').attr('disabled', $model.$modelValue.is_closed)
+            render($model.$modelValue.due_date, $model.$modelValue.due_status)
+
+        $el.on "click", ".due-date-button", (event) ->
             event.preventDefault()
             item = $model.$modelValue.clone()
-            return if isClosed(item)
+            return if item.is_closed
 
             lightboxFactory.create(
                 "tg-lb-set-due-date",
@@ -33,48 +69,11 @@ DueDateButtonDirective = (lightboxFactory, $translate)->
                 {"object": item}
             )
 
-        render = (item) ->
-            $scope.isClosed = isClosed(item)
-            $scope.status = getStatus(item)
-            $scope.title = getTitle(item)
-
-        isClosed = (item) ->
-            return item.is_closed
-
-        getStatus = (item) ->
-            if (item.is_closed == true)
-                return 'closed'
-            else if (item.due_status == 'due soon')
-                return 'due-soon'
-            else if (item.due_status == 'past due')
-                return 'past-soon'
-            else if (item.due_status == 'due set')
-                return 'due-set'
-            return ''
-
-        getTitle = (item) ->
-            if not item.due_date?
-                return $translate.instant("COMMON.DUE_DATE.TITLE_ACTION_SET_DUE_DATE")
-
-            prettyDate = $translate.instant("COMMON.PICKERDATE.FORMAT")
-            title = moment(item.due_date).format(prettyDate)
-            if (item.is_closed == true)
-                return "#{title} (#{$translate.instant("COMMON.DUE_DATE.NO_LONGER_APPLICABLE")})"
-            else if (item.due_status == 'due soon')
-                return "#{title} (#{$translate.instant("COMMON.DUE_DATE.DUE_SOON")})"
-            else if (item.due_status == 'past due')
-                return "#{title} (#{$translate.instant("COMMON.DUE_DATE.PAST_DUE")})"
-            return title
-
-        $scope.$watch $attrs.ngModel, (instance) ->
-            return if not instance?
-            render($model.$modelValue)
-
     return {
         link: link
         require: "ngModel"
         templateUrl: "components/due-date-button/due-date-button.html"
     }
 
-angular.module('taigaComponents').directive("tgDueDateButton", ["tgLightboxFactory", "$translate"
-                                                                DueDateButtonDirective])
+angular.module('taigaComponents').directive("tgDueDate",
+["$log", "tgLightboxFactory", "$translate", DueDateDirective])
