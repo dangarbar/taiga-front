@@ -18,7 +18,7 @@
 ###
 
 
-DueDateDirective = (lightboxFactory, $translate)->
+DueDateButtonDirective = (lightboxFactory, $translate)->
     link = ($scope, $el, $attrs, $model) ->
         item = null
 
@@ -67,18 +67,14 @@ DueDateDirective = (lightboxFactory, $translate)->
             return title
 
         $scope.$watch $attrs.ngModel, (instance) ->
-            return if not item?
+            return if not instance?
             render($model.$modelValue)
-
-    templateUrl = (el, attrs) ->
-        format = if attrs.format then attrs.format else 'icon'
-        return "components/due-date/due-date-#{format}.html"
 
     return {
         link: link
         require: "ngModel"
-        templateUrl: templateUrl
+        templateUrl: "components/due-date-button/due-date-button.html"
     }
 
-angular.module('taigaComponents').directive("tgDueDate", ["tgLightboxFactory", "$translate"
-                                                          DueDateDirective])
+angular.module('taigaComponents').directive("tgDueDateButton", ["tgLightboxFactory", "$translate"
+                                                                DueDateButtonDirective])
