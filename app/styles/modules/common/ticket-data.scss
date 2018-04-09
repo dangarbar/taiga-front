@@ -177,7 +177,6 @@
     .item-block,
     .item-unblock,
     .promote-button,
-    .due-date-button,
     .button-delete {
         background: $gray-light;
         display: inline-block;
@@ -212,20 +211,6 @@
         background: $red-light;
         &:hover {
             background: $red;
-        }
-    }
-    .due-date-button {
-        &.closed {
-            background: $gray-lighter;
-        }
-        &.due-set {
-            background: $yellow-green;
-        }
-        &.due-soon {
-            background: $my-sin;
-        }
-        &.past-due {
-            background: $red-light;
         }
     }
     img {
