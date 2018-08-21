@@ -597,9 +597,16 @@
         margin-right: 0;
     }
 
-    .summary .number {
-        margin-left: .3rem;
-        margin-right: 0;
+    .summary {
+        .number {
+            margin-left: .3rem;
+            margin-right: 0;
+        }
+
+        .stats {
+            margin-left: initial;
+            margin-right: auto;
+        }
     }
 
     .table-team {
