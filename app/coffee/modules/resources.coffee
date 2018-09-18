@@ -52,6 +52,9 @@ urls = {
     "permissions": "/permissions"
     "notify-policies": "/notify-policies"
 
+    # User Project Settings
+    "user-project-settings": "/user-project-settings"
+
     # User - Storage
     "user-storage": "/user-storage"
 
@@ -266,6 +269,7 @@ module.run([
     "$tgNotifyPoliciesResourcesProvider",
     "$tgInvitationsResourcesProvider",
     "$tgRolesResourcesProvider",
+    "$tgUserProjectSettingsResourcesProvider",
     "$tgUserSettingsResourcesProvider",
     "$tgSprintsResourcesProvider",
     "$tgEpicsResourcesProvider",
