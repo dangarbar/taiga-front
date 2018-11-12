@@ -59,7 +59,7 @@ class UserStoryDetailController extends mixOf(taiga.Controller, taiga.PageMixin)
 
         @scope.usRef = @params.usref
         @scope.sectionName = @translate.instant("US.SECTION_NAME")
-        @scope.tribeEnabled = @configService.config.tribeHost
+        @scope.tribeEnabled = false
 
         @.initializeEventHandlers()
 
