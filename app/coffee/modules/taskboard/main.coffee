@@ -332,6 +332,13 @@ class TaskboardController extends mixOf(taiga.Controller, taiga.PageMixin, taiga
         @scope.$on("taskboard:task:move", @.taskMove)
         @scope.$on("assigned-to:added", @.onAssignedToChanged)
 
+        @scope.$on "taskboard:items:move", (event, itemsMoved) =>
+            if itemsMoved.uss
+                @.firstLoad()
+            else
+                @.loadTasks() if itemsMoved.tasks
+                @.loadIssues() if itemsMoved.issues
+
     onAssignedToChanged: (ctx, userid, model) ->
         if model.getName() == 'tasks'
             model.assigned_to = userid
@@ -577,6 +584,7 @@ class TaskboardController extends mixOf(taiga.Controller, taiga.PageMixin, taiga
                     @confirm.notify("error")
 
     taskMove: (ctx, task, oldStatusId, usId, statusId, order) ->
+        @scope.taskBoardLoading = true
         task = @taskboardTasksService.getTaskModel(task.get('id'))
 
         moveUpdateData = @taskboardTasksService.move(task.id, usId, statusId, order)
@@ -593,6 +601,10 @@ class TaskboardController extends mixOf(taiga.Controller, taiga.PageMixin, taiga
         }
 
         promise = @repo.save(task, true, params, options, true).then (result) =>
+            if result[0]?.user_story
+                @.reloadUserStory(result[0].user_story)
+
+            @scope.taskBoardLoading = false
             headers = result[1]
 
             if headers && headers['taiga-info-order-updated']
@@ -604,6 +616,9 @@ class TaskboardController extends mixOf(taiga.Controller, taiga.PageMixin, taiga
             if @.isFilterDataTypeSelected('status')
                 @.loadTasks()
 
+    reloadUserStory: (userStoryId) ->
+        @rs.userstories.get(@scope.project.id, userStoryId).then (us) =>
+            @scope.userstories = _.map(@scope.userstories, (x) -> if x.id == us.id then us else x)
 
     ## Template actions
     addNewTask: (type, us) ->
