@@ -1800,5 +1800,19 @@
             "ACTION_TITLE": "Search",
             "RESULTS": "Search results"
         }
+    },
+    "TIPS": {
+      "TIPS_TITLE": "Tip",
+      "TIP_PROJECTS_ORDER": "Place first the projects that you use the most, sorting them on the page of your projects.",
+      "TIP_VOTING": "If you want to take into account the opinion of other people, ask them to vote for the tasks that seem most interesting.",
+      "TIP_ISSUES_TO_SPRINT": "You can add issues to a sprint, from the issue detail view with the pushpin button.",
+      "TIP_DUE_DATE": "If you need to finish a task on a specific date, activate the DueDate from the detail view of the task.",
+      "TIP_IOCAIN": "If a task is being especially hard, activate the iocaine button. Your team will be more understanding and maybe they can help you.",
+      "TIP_BLOCKED": "Make visible that you cannot continue with a task marking it as blocked.",
+      "TIP_PROMOTE": "Is your issue or task more complicated than it seemed? Turn it into user story from the detail view.",
+      "TIP_BULK": "When you want to add many tasks at once, choose bulk mode and write each one on a line.",
+      "TIP_ZOOM": "You can get a wider view of the kanban by reducing the information shown on the cards with the zoom control.",
+      "TIP_CUSTOM_FIELDS": "Use custom fields in the detail view of a task to fit it to your needs. Create them in the project admin.",
+      "TIP_SLIDE_ARROWS": "Go from one task to another using the arrows in the header."
     }
 }

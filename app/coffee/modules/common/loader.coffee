@@ -26,7 +26,7 @@ timeout = @.taiga.timeout
 
 module = angular.module("taigaCommon")
 
-LoaderDirective = (tgLoader, $rootscope) ->
+LoaderDirective = ($timeout, tgLoader, $rootscope) ->
     link = ($scope, $el, $attrs) ->
         tgLoader.onStart () ->
             $(document.body).addClass("loader-active")
@@ -40,7 +40,7 @@ LoaderDirective = (tgLoader, $rootscope) ->
         link: link
     }
 
-module.directive("tgLoader", ["tgLoader", "$rootScope", LoaderDirective])
+module.directive("tgLoader", ["$timeout", "tgLoader", "$rootScope", LoaderDirective])
 
 Loader = ($rootscope) ->
     config = {

@@ -46,6 +46,13 @@ $top-icon-color: $white;
 $dropdown-color: rgba(darken($primary-dark, 20%), 1);
 $code-bg: #272822;
 
+//Tips colors
+$tip-color-1: #AE4FB0;
+$tip-color-2: #4E88DF;
+$tip-color-3: #6360D6;
+$tip-color-4: #47B3A6;
+$tip-color-5: #D76969;
+
 /* Overwrite mixins */
 
 @mixin triangled-bg {
