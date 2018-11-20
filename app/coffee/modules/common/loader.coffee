@@ -54,7 +54,7 @@ Loader = ($rootscope) ->
 
     pageLoaded = (force = false) ->
         if startLoadTime
-            timeoutValue = 0
+            timeoutValue = 6000
 
             if !force
                 endTime = new Date().getTime()

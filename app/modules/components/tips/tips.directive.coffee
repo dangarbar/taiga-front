@@ -43,7 +43,6 @@ tipsDirective = (tgLoader, $translate) ->
 
         loadTip = () ->
             tip = tips[randomInt(tips.length - 1)]
-            tip = tips[5]
             scope.contentType = tip.contentType
             scope.message = "TIPS.TIP_#{tip.message}"
             scope.icon = tip.icon
