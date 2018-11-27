@@ -68,12 +68,12 @@ class EventsService
         if @.ws is undefined
             return
 
+        @.ws.close()
         @.ws.removeEventListener("open", @.onOpen)
         @.ws.removeEventListener("close", @.onClose)
         @.ws.removeEventListener("error", @.onError)
         @.ws.removeEventListener("message", @.onMessage)
         @.stopHeartBeatMessages()
-        @.ws.close()
 
         delete @.ws
 
