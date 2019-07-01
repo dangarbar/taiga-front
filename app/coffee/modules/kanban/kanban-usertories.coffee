@@ -38,11 +38,10 @@ class KanbanUserstoriesService extends taiga.Service
 
     resetFolds: () ->
         @.foldStatusChanged = {}
-        @.refresh()
 
     toggleFold: (usId) ->
         @.foldStatusChanged[usId] = !@.foldStatusChanged[usId]
-        @.refresh()
+        @.refreshUserStory(usId)
 
     set: (userstories) ->
         @.userstoriesRaw = userstories
@@ -80,8 +79,6 @@ class KanbanUserstoriesService extends taiga.Service
         @.archived = _.difference(@.archived, toDelete)
 
         @.userstoriesRaw = _.filter @.userstoriesRaw, (us) -> return us.status != statusId
-
-        @.refresh()
 
     refreshRawOrder: () ->
         @.order = {}
@@ -179,18 +176,6 @@ class KanbanUserstoriesService extends taiga.Service
             set_orders: setOrders
         }
 
-    moveToEnd: (id, statusId) ->
-        us = @.getUsModel(id)
-
-        @.order[us.id] = -1
-
-        us.status = statusId
-        us.kanban_order = @.order[us.id]
-
-        @.refresh()
-
-        return {"us_id": us.id, "order": -1}
-
     replace: (us) ->
         @.usByStatus = @.usByStatus.map (status) ->
             findedIndex = status.findIndex (usItem) ->
@@ -208,7 +193,7 @@ class KanbanUserstoriesService extends taiga.Service
             else
                 return usItem
 
-        @.refresh()
+        @.refreshUserStory(us.id)
 
     getUs: (id) ->
         findedUs = null
@@ -223,36 +208,53 @@ class KanbanUserstoriesService extends taiga.Service
     getUsModel: (id) ->
         return _.find @.userstoriesRaw, (us) -> return us.id == id
 
-    refresh: ->
+    refreshUserStory: (usId) ->
+        console.log('refresh us', usId)
+        usModel = @.getUsModel(usId)
+        collection =  @.usByStatus.toJS()
+
+        index = _.findIndex(collection[usModel.status], (x) => x.id == usId)
+        us = @.retrieveUserStoryData(usModel)
+        collection[usModel.status][index] = us
+
+        @.usByStatus = Immutable.fromJS(collection)
+
+    retrieveUserStoryData: (usModel) ->
+        us = {}
+        model = usModel.getAttrs()
+
+        us.foldStatusChanged = @.foldStatusChanged[usModel.id]
+
+        us.model = model
+        us.images = _.filter model.attachments, (it) -> return !!it.thumbnail_card_url
+
+        us.id = usModel.id
+        us.assigned_to = @.usersById[usModel.assigned_to]
+        us.assigned_users = []
+
+        usModel.assigned_users.forEach (assignedUserId) =>
+            assignedUserData = @.usersById[assignedUserId]
+            us.assigned_users.push(assignedUserData)
+
+        us.colorized_tags = _.map us.model.tags, (tag) =>
+            return {name: tag[0], color: tag[1]}
+
+        return us
+
+    refresh: () ->
+        console.log('refresh all')
         @.userstoriesRaw = _.sortBy @.userstoriesRaw, (it) => @.order[it.id]
 
-        userstories = @.userstoriesRaw
-        userstories = _.map userstories, (usModel) =>
-            us = {}
+        @.usByStatus =
+        collection = []
 
-            model = usModel.getAttrs()
+        for key, usModel of @.userstoriesRaw
+            us = @.retrieveUserStoryData(usModel)
+            if (!collection[us.model.status])
+                collection[us.model.status] = []
 
-            us.foldStatusChanged = @.foldStatusChanged[usModel.id]
+            collection[us.model.status][collection[us.model.status].length] = us
 
-            us.model = model
-            us.images = _.filter model.attachments, (it) -> return !!it.thumbnail_card_url
-
-            us.id = usModel.id
-            us.assigned_to = @.usersById[usModel.assigned_to]
-            us.assigned_users = []
-
-            usModel.assigned_users.forEach (assignedUserId) =>
-                assignedUserData = @.usersById[assignedUserId]
-                us.assigned_users.push(assignedUserData)
-
-            us.colorized_tags = _.map us.model.tags, (tag) =>
-                return {name: tag[0], color: tag[1]}
-
-            return us
-
-        usByStatus = _.groupBy userstories, (us) ->
-            return us.model.status
-
-        @.usByStatus = Immutable.fromJS(usByStatus)
+        @.usByStatus = Immutable.fromJS(collection)
 
 angular.module("taigaKanban").service("tgKanbanUserstories", KanbanUserstoriesService)

@@ -70,7 +70,6 @@ class KanbanController extends mixOf(taiga.Controller, taiga.PageMixin, taiga.Fi
         @kanbanUserstoriesService.reset()
         @.openFilter = false
         @.selectedUss = {}
-
         return if @.applyStoredFilters(@params.pslug, "kanban-filters")
 
         @scope.sectionName = @translate.instant("KANBAN.SECTION_NAME")
@@ -262,15 +261,11 @@ class KanbanController extends mixOf(taiga.Controller, taiga.PageMixin, taiga.Fi
         params = _.merge params, @location.search()
 
         promise = @rs.userstories.listAll(@scope.projectId, params).then (userstories) =>
+            @rootscope.$broadcast("kanban:userstories:loaded", userstories)
+            @scope.$broadcast("userstories:loaded", userstories)
+
             @kanbanUserstoriesService.init(@scope.project, @scope.usersById)
             @kanbanUserstoriesService.set(userstories)
-
-            @rootscope.$broadcast("kanban:userstories:loaded", userstories)
-
-            # The broadcast must be executed when the DOM has been fully reloaded.
-            # We can't assure when this exactly happens so we need a defer
-            scopeDefer @scope, =>
-                @scope.$broadcast("userstories:loaded", userstories)
 
             return userstories
 
