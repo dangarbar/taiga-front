@@ -74,7 +74,7 @@ div.kanban-table(
                 )
 
                 tg-card.card.ng-animate-disabled(
-                    tg-repeat="us in usByStatus.get(s.id.toString()) track by us.getIn(['model', 'id'])",
+                    tg-repeat="us in usByStatus.get(s.id.toString()) track by $index",
                     ng-class="{'kanban-task-maximized': ctrl.isMaximized(s.id), 'kanban-task-minimized': ctrl.isMinimized(s.id), 'kanban-task-selected': ctrl.selectedUss[us.get('id')], 'ui-multisortable-multiple': ctrl.selectedUss[us.get('id')]}"
                     tg-class-permission="{'readonly': '!modify_task'}"
                     tg-bind-scope,
