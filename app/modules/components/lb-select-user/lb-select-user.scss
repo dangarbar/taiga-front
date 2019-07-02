@@ -16,7 +16,7 @@
         vertical-align: middle;
         &:hover,
         &.selected {
-            background: rgba(lighten($primary-light, 30%), .3);
+            background: rgba($secondary-light, .3);
             cursor: pointer;
         }
         &:hover {
@@ -24,7 +24,7 @@
             transition-delay: .2s;
         }
         &.is-active {
-            background: rgba(lighten($primary-light, 30%), .3);
+            background: rgba($secondary-light, .3);
             cursor: pointer;
             position: relative;
             transition: background .3s linear;

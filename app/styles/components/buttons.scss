@@ -82,10 +82,20 @@
 .button-green,
 a.button-green {
     @extend %button;
+    background: $secondary;
+    &:hover,
+    &.active {
+        background: $secondary-light;
+        color: $white;
+    }
+}
+.button-primary,
+a.button-primary {
+    @extend %button;
     background: $primary;
     &:hover,
     &.active {
-        background: $primary-light;
+        background: $secondary-light;
         color: $white;
     }
 }
@@ -95,7 +105,7 @@ a.button-gray {
     background: $gray;
     &:hover,
     &.active {
-        background: $primary-light;
+        background: $gray-light;
         color: $white;
     }
 }
@@ -122,7 +132,7 @@ a.button-gray {
 
 .button-bulk {
     @extend %button;
-    background: $primary;
+    background: $secondary;
     padding: .55rem .75rem;
     .icon {
         fill: currentColor;
@@ -131,7 +141,7 @@ a.button-gray {
         top: 1px;
     }
     &:hover {
-        background: $primary-light;
+        background: $secondary-light;
     }
 }
 .button-auth {

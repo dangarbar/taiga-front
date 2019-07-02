@@ -39,7 +39,7 @@
     }
     input:checked {
         + div {
-            background-color: $primary-light;
+            background-color: $secondary;
             margin-left: 50%;
             transition: all .2s linear;
         }

@@ -4,8 +4,8 @@
         flex-direction: column;
     }
     .ticket-role-points {
-        background: rgba($gray-light, .2);
-        color: $gray-light;
+        background: darken($whitish, 2%);
+        color: $gray;
         display: flex;
         flex: 1;
         justify-content: space-between;
@@ -16,8 +16,7 @@
         &.clickable {
             &:hover,
             &.active {
-                background: rgba($primary-light, .9);
-                color: $whitish;
+                background: lighten($whitish, 2%);
                 .points,
                 .role,
                 .icon-arrow-bottom {
@@ -27,9 +26,9 @@
             }
         }
         &:last-child {
-            background: rgba($primary-dark, .5);
+            background: rgba($gray-light, .5);
             border-bottom: 0;
-            color: $whitish;
+            color: $mass-white;
             .points,
             .role,
             .icon-arrow-bottom {
@@ -63,7 +62,7 @@
             text-align: center;
             &:hover,
             &.active {
-                background: $primary-light;
+                background: $secondary;
                 color: $white;
             }
         }

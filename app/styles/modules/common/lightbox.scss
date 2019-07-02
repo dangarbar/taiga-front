@@ -579,8 +579,8 @@
         margin: 1rem 0 .5rem;
     }
     .suggestion {
-        background: rgba($gray-lighter, .2);
-        color: $gray-lighter;
+        background: $gray;
+        color: $white;
         justify-content: flex-start;
         margin: 0 .5rem .5rem;
         min-height: 2rem;
@@ -595,7 +595,7 @@
         &.clickable {
             &:hover,
             &.active {
-                background: rgba($primary-light, .9);
+                background: $secondary;
                 color: $white;
             }
         }

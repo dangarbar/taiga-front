@@ -1,7 +1,8 @@
 .auth {
-    @include triangled-bg;
     align-items: center;
+    background: $primary;
     bottom: 0;
+    color: $white;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -51,7 +52,7 @@
         a {
             text-decoration: underline;
             &:hover {
-                color: $primary-light;
+                color: $primary-lighter;
             }
         }
     }
@@ -64,8 +65,9 @@
         text-align: center;
     }
     a {
+        color: $primary-light;
         &:hover {
-            color: $white;
+            color: $primary-lighter;
         }
     }
 }

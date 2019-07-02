@@ -35,7 +35,7 @@ body {
 
 // Secondary panel
 .menu-secondary {
-    background: lighten($primary-light, 22%);
+    background: $mass-white;
 }
 
 // Tertiary panel
@@ -45,7 +45,7 @@ body {
 
 // Extra bar panel
 .extrabar {
-    background: lighten($primary-light, 22%);
+    background: $mass-white;
 }
 
 // Titles
@@ -125,9 +125,9 @@ cite {
 
 // Top navigation bar
 .navbar {
-    background: rgba($red-amaranth, .6);
-    &::after {
-        background: url('../images/menu-vert.png') repeat top left;
+    background: $primary;
+    a {
+        color: $white;
     }
 }
 
@@ -135,8 +135,7 @@ cite {
 
 //In project left navigation bar
 tg-project-menu {
-    background-color: rgba(darken($primary-dark, 15%), 1);
-    background-image: none;
+    background: $gray-light;
 }
 
 .main-nav {

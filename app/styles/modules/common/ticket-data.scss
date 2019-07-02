@@ -66,18 +66,18 @@
         vertical-align: top;
     }
     .level-name {
-        color: darken($whitish, 20%);
+        color: $gray;
         float: right;
         text-transform: lowercase;
     }
     .clickable {
         &:hover {
-            background: darken($whitish, 10%);
+            background: lighten($whitish, 2%);
             transition: background .2s ease-in;
         }
     }
     .type-data {
-        background: darken($whitish, 5%);
+        background: darken($whitish, 2%);
         margin-bottom: .5rem;
         padding: .5rem;
         padding-right: 1rem;
@@ -88,7 +88,7 @@
         }
     }
     .severity-data {
-        background: darken($whitish, 5%);
+        background: darken($whitish, 2%);
         margin-bottom: .5rem;
         padding: .5rem;
         padding-right: 1rem;
@@ -99,7 +99,7 @@
         }
     }
     .priority-data {
-        background: darken($whitish, 5%);
+        background: darken($whitish, 2%);
         margin-bottom: .5rem;
         padding: .5rem;
         padding-right: 1rem;
@@ -132,34 +132,41 @@
     .add-watcher {
         @include font-type(light);
         @include font-size(small);
-        background: $gray-light;
-        color: $white;
+        background: $white;
+        color: $gray;
         flex: 1;
         padding: .25rem;
         text-align: center;
         text-transform: uppercase;
         transition: background .25s;
         svg {
-            fill: $white;
+            fill: $gray;
         }
         &:hover {
-            background: $primary-light;
+            background: $gray;
+            color: $white;
+            svg {
+                fill: $white;
+            }
         }
         &.is-hover {
             background: $red;
-            color: $whitish;
+            color: $white;
             transition: background .3s;
-            svg {
-                fill: $red-light;
+            svg,
+            &:hover svg {
+                fill: $white;
             }
         }
         &.active {
-            background: $primary-light;
+            background: darken($whitish, 2%);
+            color: $gray-light;
             &:hover {
                 background: $red-light;
+                color: $white;
             }
             svg {
-                fill: $white;
+                fill: $gray-light;
             }
         }
 
@@ -180,39 +187,24 @@
     .item-unblock,
     .promote-button,
     .button-delete {
-        background: $gray-light;
         display: inline-block;
         margin-right: .5rem;
         padding: 1rem;
         transition: background .2s linear;
         transition-delay: .1s;
-        &:hover {
-            background: $gray;
-        }
         &.editable {
             cursor: pointer;
         }
         +input {
             display: none;
         }
-        &.button-set,
-        &.text-button.button-set:hover {
-            background: $yellow-green;
-            border-color: $yellow-green;
-        }
     }
 
     .assign-issue-button {
         display: none;
 
-        &:hover {
-            background: $yellow-green;
-        }
         &.is-active {
             display: inline-block;
-        }
-        &.button-set:hover {
-            background: $red-light;
         }
     }
 

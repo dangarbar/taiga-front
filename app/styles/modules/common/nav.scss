@@ -34,7 +34,7 @@ tg-project-menu {
         background: rgba($black, .2);
         transition: color .3s linear;
         svg {
-            fill: $primary-light;
+            fill: $gray-lighter;
             transition: fill .3s linear;
         }
         .helper {
@@ -87,11 +87,11 @@ tg-project-menu {
     }
     .active {
         background: rgba($white, .95);
-        color: $secondary-dark;
+        color: $gray-light;
         svg {
-            fill: $secondary-dark;
+            fill: $gray-light;
             opacity: 1;
-            stroke: $secondary-dark;
+            stroke: $gray-light;
         }
     }
 }

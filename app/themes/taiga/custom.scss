@@ -15,7 +15,7 @@ body {
 
 // Secondary panel
 .menu-secondary {
-    background: $mass-white;
+    background: $gray-lighter;
 }
 
 // Tertiary panel
@@ -65,7 +65,7 @@ textarea {
     border-color: $gray-light;
     color: $grayer;
     @include placeholder {
-        color: lighten($gray-light, 10%);
+        color: $gray-light;
     }
     &.checksley-error {
         border: 1px solid $red;
@@ -107,16 +107,15 @@ cite {
 
 // Top navigation bar
 .navbar {
-    background: rgba($black, .5);
-    &::after {
-        background: url('../images/menu-vert.png') repeat top left;
+    background: $primary;
+    a {
+        color: $white;
     }
 }
 
 //In project left navigation bar
 tg-project-menu {
-    background-color: $primary-dark;
-    background-image: url('../images/menu.png');
+    background-color: $gray-light;
 }
 
 .main-nav {

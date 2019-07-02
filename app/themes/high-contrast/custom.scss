@@ -142,24 +142,15 @@ cite {
 
 // Top navigation bar
 .navbar {
-    background: $black;
-    &::after {
-        background: url('../images/menu-vert.png') repeat top left;
-    }
+    background: $primary;
     a {
-        :hover {
-            color: $white;
-        }
-        svg {
-            fill: $white;
-        }
+        color: $white;
     }
 }
 
 //In project left navigation bar
 tg-project-menu {
-    background-color: rgba(darken($primary-dark, 15%), 1);
-    background-image: none;
+    background: $gray-light;
 }
 
 .main-nav {

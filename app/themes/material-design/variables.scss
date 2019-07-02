@@ -4,24 +4,26 @@
 
 // Colors
 $black: #000;
-$blackish: #212121;
-$grayer: #424242;
-$gray: #757575;
-$gray-light: #BDBDBD;
-$gray-lighter: #B8B8B8;
-$whitish: #EEEEEE;
+$blackish: #262021;
+$grayer: #383233;
+$gray: #767071;
+$gray-light: #B6B0B1;
+$gray-lighter: #E9E3E4;
+$whitish: #F6F0F1;
 $white: #fff;
 
 // Mass white
-$mass-white: #f5f5f5;
-
+$mass-white: #FBF7F8;
 // Primary colors
-$primary-light: #8c9eff;
-$primary-lighter: #ECEDFB;
-$primary: #3f51b5;
-$primary-dark: #1a237e;
-$primary-background: #929dd8;
+$primary: #AC4162;
+$primary-dark: darken($primary, 20%);
+$primary-background: lighten($primary, 50%);
+$primary-light: lighten($primary, 20%);
+$primary-lighter: lighten($primary, 40%);
 
+// Secondary colors
+$secondary: #3f51b5;
+$secondary-light: #8c9eff;
 $secondary-dark: #1a237e;
 
 // Status colors
