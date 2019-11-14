@@ -80,8 +80,8 @@ body {
 }
 
 .menu-tertiary {
-    background-color: $tertiary;
-    border-right: 1px solid darken($tertiary, 3%);
+    background-color: $secondary-dark;
+    border-right: 1px solid darken($secondary-dark, 3%);
     flex: 0 0 auto;
     min-height: $main-height;
     width: 250px;
@@ -91,12 +91,12 @@ body {
         }
         &:hover,
         &:hover a {
-            background: lighten($tertiary, 3%);
+            background: lighten($secondary-dark, 3%);
             color: lighten($grey-70, 5%);
         }
         .active {
-            background: lighten($tertiary, 6%);
-            color: lighten($grey-70, 10%);
+            background: lighten($secondary-dark, 6%);
+            color: rgba($white, .6);
         }
     }
 }
