@@ -84,7 +84,7 @@ class AuthService extends taiga.Service
         @analytics.setUserId()
 
     _getUserTheme: ->
-        return @rootscope.user?.theme || @config.get("defaultTheme") || "taiga-fresh" # load on index.jade
+        return @rootscope.user?.theme || @storage.get("theme") || @config.get("defaultTheme") || "taiga-fresh" # load on index.jade
 
     _setTheme: ->
         newTheme = @._getUserTheme()
@@ -92,34 +92,28 @@ class AuthService extends taiga.Service
         if @._currentTheme != newTheme
             @._currentTheme = newTheme
             @themeService.use(@._currentTheme)
+            @storage.set("theme", @._currentTheme)
 
     _setLocales: ->
-        lang = @rootscope.user?.lang || @config.get("defaultLanguage") || "en"
+        lang = @rootscope.user?.lang || @storage.get("lang") ||  @config.get("defaultLanguage") || "en"
         @translate.preferredLanguage(lang)  # Needed for calls to the api in the correct language
         @translate.use(lang)                # Needed for change the interface in runtime
+        @storage.set("lang", lang)
 
     getUser: ->
         if @rootscope.user
             return @rootscope.user
 
-        userData = @storage.get("userInfo")
-
-        if userData
-            user = @model.make_model("users", userData)
-            @rootscope.user = user
-            @._setLocales()
-
-            @._setTheme()
-
-            return user
+        if @.getToken()
+            @.refresh()
         else
+            @._setLocales()
             @._setTheme()
 
         return null
 
     setUser: (user) ->
         @rootscope.auth = user
-        @storage.set("userInfo", user.getAttrs())
         @rootscope.user = user
 
         @.setUserdata(user)
@@ -130,7 +124,6 @@ class AuthService extends taiga.Service
     clear: ->
         @rootscope.auth = null
         @rootscope.user = null
-        @storage.remove("userInfo")
 
     setToken: (token) ->
         @storage.set("token", token)
@@ -152,7 +145,7 @@ class AuthService extends taiga.Service
 
         return @http.get(url).then (data, status) =>
             user = data.data
-            user.token = @.getUser().auth_token
+            user.token = @storage.get("token")
 
             user = @model.make_model("users", user)
 
