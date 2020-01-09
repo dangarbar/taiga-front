@@ -84,7 +84,7 @@ class UserSettingsController extends mixOf(taiga.Controller, taiga.PageMixin)
     getTheme: ->
         return @scope.user.theme ||
                @config.get("defaultTheme") ||
-               "taiga-fresh"
+               "taiga"
 
     exportProfile: ->
         onSuccess = (result) ->

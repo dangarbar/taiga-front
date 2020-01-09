@@ -3,7 +3,7 @@ var fs = require("fs");
 var gutil = require('gulp-util');
 
 var Theme = function() {
-    var defaultTheme = "taiga-fresh";
+    var defaultTheme = "taiga";
 
     var themesPath = "app/themes";
     var tmpThemesPath = "tmp/themes";

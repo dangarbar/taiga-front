@@ -7,7 +7,7 @@
     "debug": true,
     "debugInfo": false,
     "defaultLanguage": "en",
-    "themes": ["taiga"],
+    "themes": ["taiga", "taiga-legacy", "high-contrast", "material-design"],
     "defaultTheme": "taiga",
     "defaultLoginEnabled": true,
     "publicRegisterEnabled": true,
