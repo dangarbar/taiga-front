@@ -638,7 +638,7 @@
     $spacing: 15px;
     $width: 700px;
     $pop-width: 203px;
-    $sidebar-width: 220px;
+    $sidebar-wide-width: 220px;
     form {
         flex-basis: $width;
         max-width: $width;
@@ -652,15 +652,15 @@
         margin-bottom: $spacing * 2;
         main {
             flex-grow: 1;
-            max-width: $width - $sidebar-width;
+            max-width: $width - $sidebar-wide-width;
         }
         .sidebar {
             background: none;
             border-left: 2px solid $whitish;
             margin-left: $spacing;
             padding-left: $spacing;
-            $min-width: $sidebar-width;
-            width: $sidebar-width;
+            $min-width: $sidebar-wide-width;
+            width: $sidebar-wide-width;
         }
     }
     .existing-item-wrapper {
